@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
  <link rel="stylesheet" href="style.css">
 
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
@@ -12,6 +12,8 @@
  <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"/>
+ <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+
 
 </head>
 
@@ -42,7 +44,7 @@
         <div class="text-1">Hello guest, welcome to</div>
         <div class="text-2">Anshul kr. Pandey`s</div>
         <div class="text-3">Portfolio. I`m &nbsp; <span class="typing"></span></div>
-        <a href="#">Open to work</a>
+        <a href="#contact">Open to work</a>
     </div>
  </div>
 </section>
@@ -61,7 +63,7 @@
                     That`s what fascinated me towards development and designing field.
                  My skills will surely be an asset for your projects
                 </p>
-                <a href="#">Download CV</a>
+                <a href="Anshul CV 2023 - UPDATED.pdf" download="Anshul CV 2023 - UPDATED.pdf">Download CV</a>
             </div>
         </div>
     </div>
@@ -98,25 +100,20 @@
     </div>
 </section>
 
-
 <section class="skills" id="skills">
     <div class="max-width">
         <h2 class="title">My skills</h2>
         <div class="skills-content">
             <div class="column left">
-                <div class="text">My creative skills & experiences.</div>
-                <p>I have completed many projects. I know the internet and langugae. 
-                    Hence i can help you with any sort development related of problems.
-                    I know content writing. Also i know about Advertisment and marketing. I also have fair idea of Social media marketing.
-                    Kindly reach out to me if you got any projects for me.
-                    </p>
+                <div class="text">My Proficiency in Web Technologies</div>
+                <p>I bring a wealth of experience and expertise in web development, specializing in HTML, CSS, JavaScript, TypeScript, and Angular. I have a strong grasp of these essential technologies, which allows me to craft stunning and functional web applications. Whether it's designing the user interface or solving complex development challenges, I'm well-equipped to handle it all. In addition, my skill set extends to content writing, advertising, and digital marketing, providing a holistic approach to online projects. If you have any web-related endeavors, please don't hesitate to get in touch with me.</p>
                 <a href="#">Read more</a>
-            </div>
+            </div>            
             <div class="column right">
                 <div class="bars">
                     <div class="info">
                         <span>HTML</span>
-                        <span>90%</span>
+                        <span>80%</span>
                     </div>
                     <div class="line html"></div>
                 </div>
@@ -129,22 +126,52 @@
                 </div>
                 <div class="bars">
                     <div class="info">
-                        <span>JavaScript</span>
-                        <span>70%</span>
+                        <span>JavaScript/Typescript</span>
+                        <span>80%</span>
                     </div>
                     <div class="line js"></div>
                 </div>
                 <div class="bars">
                     <div class="info">
                         <span>Core Java</span>
+                        <span>65%</span>
+                    </div>
+                    <div class="line corejava"></div> 
+                </div>
+                <div class="bars">
+                    <div class="info">
+                        <span>Angular</span>
                         <span>75%</span>
                     </div>
-                    <div class="line mysql"</div>
+                    <div class="line angular"></div> 
+                </div>
+                <div class="bars">
+                    <div class="info">
+                        <span>SQL</span>
+                        <span>70%</span>
+                    </div>
+                    <div class="line mysql"></div> 
+                </div>
+                <div class="bars">
+                    <div class="info">
+                        <span>Bootstrap</span>
+                        <span>70%</span>
+                    </div>
+                    <div class="line mysql"></div> 
+                </div>
+                <div class="bars">
+                    <div class="info">
+                        <span>Primeng</span>
+                        <span>75%</span>
+                    </div>
+                    <div class="line bootstrap"></div> 
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+
 
 
 <section class="remarks" id="remarks">
@@ -197,6 +224,8 @@
     </div>
 </section>
 
+<!-- template_57yjz3oy -->
+<!-- service_qzijhnu -->
 
 <section class="contact" id="contact">
     <div class="max-width">
@@ -235,20 +264,20 @@
                 <form action="#">
                     <div class="fields">
                         <div class="field name">
-                            <input type="text" placeholder="Name" required>
+                            <input type="text" placeholder="Name" id="name" required>
                         </div>
                         <div class="field email">
-                            <input type="email" placeholder="Email" required>
+                            <input type="email" placeholder="E-mail" id="email" required>
                         </div>
                     </div>
                     <div class="field">
-                        <input type="text" placeholder="Subject" required>
+                        <input type="text" placeholder="Subject" id="subject" required>
                     </div>
                     <div class="field textarea">
-                        <textarea cols="30" rows="10" placeholder="Message.." required></textarea>
+                        <textarea cols="30" rows="10" placeholder="Message.." id="message" required></textarea>
                     </div>
                     <div class="button-area">
-                        <button type="submit">Send message</button>
+                        <button type="submit" onclick="sendEmail()">Send message</button>
                     </div>
                 </form>
             </div>
@@ -258,9 +287,13 @@
 
 
 <footer>
-    <span>Created By <a href="Anshul kr. Pandey">Anshul </a> | <span class="far fa-copyright"></span> 2022 All rights reserved.</span>
+    <span>Created By <a href="Anshul kr. Pandey">Anshul </a> | <span class="far fa-copyright"></span> 2023 All rights reserved.</span>
 </footer>
-
+<script>
+    (function() {
+        emailjs.init("Dfrqs1oQRujc3_H3K");
+    })();
+</script>
     <script src="script.js"></script>
 </body>
 
