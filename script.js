@@ -71,3 +71,29 @@ $(document).ready(function(){
         }
     });
 });
+
+function sendEmail() {
+    if ( document.getElementById("name").value !== '' && document.getElementById("email").value !== '' && document.getElementById("subject").value !== '')
+     {
+        emailjs.send("service_qzijhnu", "template_57yjz3oy", {
+            from_name: document.getElementById("name").value,
+            from_email: document.getElementById("email").value,
+            message: document.getElementById("message").value,
+        })
+        .then(function(response) {
+            alert("Message sent successfully!");
+        }, function(error) {
+            alert("Message failed to send. Please try again later.");
+        });
+    
+        document.getElementById("name").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("subject").value = "";
+        document.getElementById("message").value = "";  
+    }
+else
+{
+    alert("Please fill the required fields");
+    return
+}
+}
