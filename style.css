@@ -364,10 +364,10 @@ section .title::after{
     width: 90%;
 }
 .skills-content .right .css::before{
-    width: 60%;
+    width: 90%;
 }
 .skills-content .right .js::before{
-    width: 80%;
+    width: 90%;
 }
 .skills-content .right .php::before{
     width: 50%;
@@ -375,6 +375,17 @@ section .title::after{
 .skills-content .right .mysql::before{
     width: 70%;
 }
+
+.skills-content .right .corejava::before{
+    width: 65%;
+}
+.skills-content .right .angular::before{
+    width: 70%;
+}
+.skills-content .right .bootstrap::before{
+    width: 70%;
+}
+
 
 .remarks .title::after
 {
