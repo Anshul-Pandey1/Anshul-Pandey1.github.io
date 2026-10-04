@@ -245,6 +245,8 @@ p { text-wrap: pretty; }
 }
 .tile-wide { grid-column: span 4; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr); }
 .tile-half { grid-column: span 3; }
+.tile-wide.flip .tile-visual { order: 0; }
+.tile-wide.flip .tile-body { padding: 30px 28px 24px 8px; }
 .tile:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--line-strong); }
 .spot { background-image: radial-gradient(420px circle at var(--mx, -999px) var(--my, -999px), var(--glow), transparent 60%); }
 .tile-visual {
@@ -271,13 +273,13 @@ p { text-wrap: pretty; }
 @media (max-width: 1040px) {
   .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .tile, .tile-half { grid-column: span 1; }
-  .tile-wide { grid-column: 1 / -1; }
+  .tile-wide, .tile-full-md, .side3 > .tile:last-child { grid-column: 1 / -1; }
 }
 @media (max-width: 680px) {
   .bento { grid-template-columns: 1fr; }
   .tile-wide { grid-template-columns: 1fr; }
   .tile-wide .tile-visual { order: 0; margin: 12px 12px 0; }
-  .tile-wide .tile-body { padding: 18px 22px 20px; }
+  .tile-wide .tile-body, .tile-wide.flip .tile-body { padding: 18px 22px 20px; }
 }
 
 /* speed race */
@@ -463,7 +465,7 @@ p { text-wrap: pretty; }
 .filter[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--bg); }
 .filter .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--c); }
 .filter .count { font: 500 0.6875rem/1 var(--font-mono); opacity: 0.7; }
-.elements { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 10px; margin: 0; padding: 0; list-style: none; }
+.elements { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 10px; margin: 0; padding: 0; list-style: none; }
 @media (max-width: 900px) { .elements { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; } .el { padding: 10px; min-height: 92px; } .sym { font-size: 1.375rem; } .el-name { font-size: 0.6875rem; } .el::after { top: 10px; right: 10px; } }
 .el {
   position: relative; display: flex; flex-direction: column; justify-content: space-between; gap: 10px; min-height: 108px; padding: 12px;
@@ -477,7 +479,7 @@ p { text-wrap: pretty; }
 .el.is-dim { opacity: 0.2; transform: scale(0.96); box-shadow: none; }
 
 /* ---------- Experience ---------- */
-.xp { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; margin: 0; padding: 0; list-style: none; }
+.xp { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 20px; margin: 0; padding: 0; list-style: none; }
 .xp::before { content: ""; position: absolute; left: 22px; right: 22px; top: 22px; height: 1px; background: var(--line-strong); }
 .xp li { position: relative; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .xp .icon-tile { position: relative; margin-bottom: 8px; background: var(--surface); border: 1px solid var(--line-strong); }
@@ -486,12 +488,12 @@ p { text-wrap: pretty; }
 .xp .org { margin: 0; font-size: 0.875rem; color: var(--ink-2); }
 .xp p.desc { margin: 2px 0 0; font-size: 0.875rem; color: var(--muted); }
 .xp li:first-child .icon-tile { background: var(--select); border-color: var(--select); color: var(--select-ink); }
-@media (max-width: 900px) { .xp { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 20px; } .xp::before { display: none; } }
-@media (max-width: 520px) { .xp { grid-template-columns: 1fr; } }
+@media (max-width: 1100px) { .xp { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px 20px; } .xp::before { display: none; } }
+@media (max-width: 560px) { .xp { grid-template-columns: 1fr; } }
 
 /* ---------- Contact ---------- */
 .contact-card {
-  position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 32px 48px; align-items: end;
+  position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 32px 48px; align-items: center;
   padding: clamp(24px, 4.5vw, 56px); background-color: var(--surface); border: 1px solid var(--line); border-radius: 20px;
 }
 .contact-card::before { content: ""; position: absolute; width: 520px; height: 520px; right: -180px; top: -220px; border-radius: 50%; background: radial-gradient(closest-side, var(--glow), transparent); pointer-events: none; }
@@ -500,7 +502,7 @@ p { text-wrap: pretty; }
 .avatar { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; outline: 2px solid var(--select); outline-offset: 3px; }
 .who b { display: block; font-weight: 650; }
 .who-status { display: inline-flex; align-items: center; gap: 7px; font-size: 0.8125rem; color: var(--muted); }
-.contact-card h2 { margin: 0; font-family: var(--font-display); font-weight: 790; font-stretch: 114%; font-size: clamp(1.875rem, 4vw, 3rem); line-height: 1.02; letter-spacing: -0.03em; }
+.contact-card h2 { margin: 0; min-height: 2.04em; font-family: var(--font-display); font-weight: 790; font-stretch: 114%; font-size: clamp(1.75rem, 3.6vw, 2.75rem); line-height: 1.02; letter-spacing: -0.03em; }
 .contact-card p { margin: 0; color: var(--ink-2); max-width: 32em; }
 .email {
   align-self: flex-start; font-family: var(--font-display); font-weight: 740; font-stretch: 104%;
@@ -513,6 +515,73 @@ p { text-wrap: pretty; }
 .facts-row li { display: inline-flex; align-items: center; gap: 7px; padding: 7px 11px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface-2); font-size: 0.8125rem; color: var(--ink-2); }
 .facts-row .i { color: var(--select); width: 15px; height: 15px; }
 @media (max-width: 860px) { .contact-card { grid-template-columns: 1fr; } }
+
+/* contact: "what do you need?" picker */
+.need { display: flex; flex-direction: column; gap: 16px; }
+.contact-card .need-label, .contact-card .send-label { margin: 0; font: 600 0.75rem/1 var(--font-mono); text-transform: uppercase; letter-spacing: 0.1em; }
+.contact-card .need-label { color: var(--select); }
+.contact-card .send-label { color: var(--muted); }
+.need-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.need-chip {
+  display: inline-flex; align-items: center; gap: 8px; padding: 9px 13px; border: 1px solid var(--line-strong); border-radius: 999px;
+  background: var(--surface-2); cursor: pointer; font-weight: 500; font-size: 0.875rem; color: var(--ink-2);
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+}
+.need-chip .i { width: 16px; height: 16px; color: var(--select); }
+.need-chip:hover { border-color: var(--select); color: var(--ink); }
+.need-chip.is-on { background: var(--select); border-color: var(--select); color: var(--select-ink); }
+.need-chip.is-on .i { color: var(--select-ink); }
+.send-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 22px; margin: 0; padding: 0; list-style: none; }
+.send-list li { position: relative; padding-left: 26px; font-size: 0.9375rem; color: var(--ink-2); }
+.send-list li::before { content: ""; position: absolute; left: 0; top: 0.2em; width: 17px; height: 17px; border-radius: 50%; background: var(--ok-wash); }
+.send-list li::after { content: ""; position: absolute; left: 5px; top: calc(0.2em + 5px); width: 6px; height: 3.5px; border-left: 1.8px solid var(--ok); border-bottom: 1.8px solid var(--ok); transform: rotate(-45deg); }
+.contact-card p.reply { font-size: 0.875rem; color: var(--muted); }
+.need.swap [data-need-title], .need.swap .send-list { animation: rotIn 0.35s ease; }
+@media (max-width: 560px) { .send-list { grid-template-columns: 1fr; } }
+
+/* charts demo */
+.chart-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
+.chart-cap { font: 500 0.75rem/1.3 var(--font-mono); color: var(--muted); }
+.chart-svg { display: block; width: 100%; height: auto; overflow: visible; }
+.cg { stroke: var(--line); stroke-width: 1; }
+.cbase { stroke: var(--line-strong); stroke-width: 1; }
+.ct { font: 9.5px var(--font-mono); fill: var(--muted); }
+.cv { font: 600 10px var(--font-mono); fill: var(--ink); }
+.cbar { fill: var(--c1); }
+.carea { fill: var(--c1); opacity: 0.12; }
+.cline { fill: none; stroke: var(--c1); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.cdot { fill: var(--c1); stroke: var(--surface-2); stroke-width: 2; }
+.cslice { stroke: var(--surface-2); stroke-width: 2; }
+.cbar:hover, .cdot:hover, .cslice:hover { opacity: 0.8; }
+.cl { font: 11px var(--font-body); fill: var(--ink-2); }
+.cnum { font-family: var(--font-mono); fill: var(--ink); }
+
+/* AI prompt demo */
+.prompt-box { display: flex; align-items: center; gap: 9px; padding: 10px 12px; background: var(--surface); border: 1px solid var(--line-strong); border-radius: 10px; }
+.prompt-box:focus-within { border-color: var(--select); box-shadow: 0 0 0 3px var(--select-wash); }
+.prompt-box .i { color: var(--select); }
+.prompt-box input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--ink); font: 1rem/1.3 var(--font-body); }
+.prompt-box input::placeholder { color: var(--muted); }
+.suggest { display: flex; flex-wrap: wrap; gap: 6px; min-height: 30px; margin: 0; padding: 0; list-style: none; }
+.suggest button { padding: 6px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); cursor: pointer; font-size: 0.75rem; color: var(--ink-2); }
+.suggest button:hover { border-color: var(--select); color: var(--select); }
+.counters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.counter { padding: 8px 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
+.counter span { display: block; font: 500 0.6875rem/1.2 var(--font-mono); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.counter b { font-weight: 700; font-size: 1.25rem; line-height: 1.3; font-variant-numeric: tabular-nums; color: var(--ink); }
+.counter.calls b { color: var(--ok); }
+.counter.flash { animation: flash 0.8s ease; }
+
+/* freelance: five cards, three then two */
+.cards-5 { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px; }
+.cards-5 > * { grid-column: span 2; }
+.cards-5 > :nth-child(n+4) { grid-column: span 3; }
+@media (max-width: 1040px) {
+  .cards-5 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cards-5 > *, .cards-5 > :nth-child(n+4) { grid-column: span 1; }
+  .cards-5 > :last-child { grid-column: 1 / -1; }
+}
+@media (max-width: 560px) { .cards-5 { grid-template-columns: 1fr; } .cards-5 > :last-child { grid-column: auto; } }
 
 /* ---------- Footer ---------- */
 .site-footer { border-top: 1px solid var(--line); padding-block: 26px 40px; font: 0.8125rem/1.5 var(--font-mono); color: var(--muted); }
@@ -634,6 +703,10 @@ p { text-wrap: pretty; }
     <symbol id="i-table" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></symbol>
     <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></symbol>
     <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></symbol>
+    <symbol id="i-truck" viewBox="0 0 24 24"><path d="M2 6h12v10H2zM14 9h4l4 4v3h-8"/><circle cx="6.5" cy="17.5" r="2"/><circle cx="17.5" cy="17.5" r="2"/></symbol>
+    <symbol id="i-megaphone" viewBox="0 0 24 24"><path d="M3 10v4a1 1 0 0 0 1 1h3l6 4V5L7 9H4a1 1 0 0 0-1 1zM17 9a4 4 0 0 1 0 6M20 6a8 8 0 0 1 0 12"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16v-4M12 16V8M17 16v-7"/></symbol>
+    <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h13v4"/><path d="M3 7v11a2 2 0 0 0 2 2h15V9H5a2 2 0 0 1-2-2z"/><path d="M16 14h.01"/></symbol>
   </defs>
 </svg>
 
@@ -847,6 +920,60 @@ p { text-wrap: pretty; }
             </div>
           </div>
         </article>
+
+        <!-- F: reports, dashboards and charts -->
+        <article class="tile tile-wide flip spot">
+          <div class="tile-visual">
+            <div class="chart-demo" data-chart>
+              <div class="chart-head">
+                <span class="chart-cap" data-chart-cap>Monthly orders · sample data</span>
+                <div class="seg" role="group" aria-label="Chart type">
+                  <button type="button" class="seg-btn is-on" data-chart-type="bar" aria-pressed="true">Bar</button>
+                  <button type="button" class="seg-btn" data-chart-type="line" aria-pressed="false">Line</button>
+                  <button type="button" class="seg-btn" data-chart-type="pie" aria-pressed="false">Pie</button>
+                </div>
+              </div>
+              <svg class="chart-svg" viewBox="0 0 320 172" role="img" aria-label="Sample chart" data-chart-svg style="margin-top:14px"></svg>
+            </div>
+          </div>
+          <div class="tile-body">
+            <p class="meta">Previous role · Acro Technologies</p>
+            <h3>Reports, dashboards and charts</h3>
+            <p class="tile-sub">A report builder with drag-and-drop fields, plus interactive line, bar and pie charts and personal dashboards in Angular. Switch the chart type to try it.</p>
+            <div class="tile-foot">
+              <ul class="tags"><li>Angular</li><li>Kendo UI</li><li>RxJS</li></ul>
+              <button type="button" class="more" data-case="case-charts" data-meta="Previous role · Acro Technologies" data-title="Reports, dashboards and charts">Case study<svg class="i" aria-hidden="true"><use href="#i-arrow-ur"/></svg></button>
+            </div>
+          </div>
+        </article>
+
+        <!-- G: AI prompt for reports -->
+        <article class="tile tile-full-md spot">
+          <div class="tile-visual">
+            <div data-prompt>
+              <label class="sr-only" for="promptInput">Ask for a report</label>
+              <div class="prompt-box"><svg class="i" aria-hidden="true"><use href="#i-sparkles"/></svg><input id="promptInput" type="text" placeholder="Try typing: sales by month" autocomplete="off"></div>
+              <ul class="suggest" data-suggest style="margin-top:10px" aria-label="Suggestions">
+                <li><button type="button">sales by month</button></li>
+                <li><button type="button">sales by region</button></li>
+                <li><button type="button">top 5 products</button></li>
+              </ul>
+              <div class="counters" style="margin-top:10px">
+                <div class="counter"><span>Keystrokes</span><b data-keys>0</b></div>
+                <div class="counter calls"><span>API calls</span><b data-calls>0</b></div>
+              </div>
+            </div>
+          </div>
+          <div class="tile-body">
+            <p class="meta">Key achievement · AI reporting</p>
+            <h3>AI prompt for reports</h3>
+            <p class="tile-sub">Suggestions as you type, and one API call when you pause instead of one per key. Type above to see it.</p>
+            <div class="tile-foot">
+              <ul class="tags"><li>Angular</li><li>RxJS</li><li>LLM APIs</li></ul>
+              <button type="button" class="more" data-case="case-ai" data-meta="Key achievement · AI reporting" data-title="AI prompt for reports">Case study<svg class="i" aria-hidden="true"><use href="#i-arrow-ur"/></svg></button>
+            </div>
+          </div>
+        </article>
       </div>
 
       <!-- Freelance -->
@@ -857,7 +984,7 @@ p { text-wrap: pretty; }
         </div>
         <p>Websites, online stores and web apps, alongside my full-time role.</p>
       </div>
-      <div class="cards-4">
+      <div class="cards-5">
         <div class="icard spot">
           <span class="icon-tile" aria-hidden="true"><svg class="i"><use href="#i-plug"/></svg></span>
           <p class="platform">WordPress</p>
@@ -871,16 +998,22 @@ p { text-wrap: pretty; }
           <p>Products, collections, navigation and theme customisation.</p>
         </div>
         <div class="icard spot">
+          <span class="icon-tile" aria-hidden="true"><svg class="i"><use href="#i-truck"/></svg></span>
+          <p class="platform">Website</p>
+          <h3>SBCExpert.in</h3>
+          <p>Transport and logistics website with a clean, mobile-friendly layout that explains each service clearly.</p>
+        </div>
+        <div class="icard spot">
+          <span class="icon-tile" aria-hidden="true"><svg class="i"><use href="#i-megaphone"/></svg></span>
+          <p class="platform">Web app · Next.js</p>
+          <h3>Ad campaign platform</h3>
+          <p>Dynamic forms for configuring campaigns, live data from the backend APIs, and role-based access to each page.</p>
+        </div>
+        <div class="icard spot">
           <span class="icon-tile" aria-hidden="true"><svg class="i"><use href="#i-sparkles"/></svg></span>
           <p class="platform">Website</p>
           <h3>Beauty-products site</h3>
-          <p>Mobile navigation, a featured-products carousel and UI work.</p>
-        </div>
-        <div class="icard spot">
-          <span class="icon-tile" aria-hidden="true"><svg class="i"><use href="#i-window"/></svg></span>
-          <p class="platform">Web apps</p>
-          <h3>Client web apps</h3>
-          <p>Work on React, Angular, Node.js and Java apps.</p>
+          <p>Mobile navigation, a featured-products carousel and UI work across the site.</p>
         </div>
       </div>
     </div>
@@ -906,7 +1039,7 @@ p { text-wrap: pretty; }
         <div class="icard service spot">
           <span class="icon-tile" aria-hidden="true"><svg class="i"><use href="#i-window"/></svg></span>
           <h3>Web apps and dashboards</h3>
-          <p>Admin panels, HR and finance tools, with the APIs behind them.</p>
+          <p>Admin panels, reports and dashboards with charts, HR and finance tools, with the APIs behind them.</p>
           <a class="more" href="mailto:anshulkumarpandey7@gmail.com?subject=Web%20app">Ask about a web app<svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
         </div>
         <div class="icard service spot">
@@ -968,9 +1101,9 @@ p { text-wrap: pretty; }
         <p>Filter by area.</p>
       </div>
       <div class="filters" role="group" aria-label="Filter tools by area">
-        <button type="button" class="filter" data-filter="all" aria-pressed="true">All <span class="count">28</span></button>
-        <button type="button" class="filter" data-filter="fe" aria-pressed="false" style="--c:var(--c1)"><span class="dot" aria-hidden="true"></span>Frontend <span class="count">10</span></button>
-        <button type="button" class="filter" data-filter="be" aria-pressed="false" style="--c:var(--c2)"><span class="dot" aria-hidden="true"></span>Backend and data <span class="count">7</span></button>
+        <button type="button" class="filter" data-filter="all" aria-pressed="true">All <span class="count">32</span></button>
+        <button type="button" class="filter" data-filter="fe" aria-pressed="false" style="--c:var(--c1)"><span class="dot" aria-hidden="true"></span>Frontend <span class="count">12</span></button>
+        <button type="button" class="filter" data-filter="be" aria-pressed="false" style="--c:var(--c2)"><span class="dot" aria-hidden="true"></span>Backend and data <span class="count">9</span></button>
         <button type="button" class="filter" data-filter="perf" aria-pressed="false" style="--c:var(--c3)"><span class="dot" aria-hidden="true"></span>Performance <span class="count">5</span></button>
         <button type="button" class="filter" data-filter="cms" aria-pressed="false" style="--c:var(--c4)"><span class="dot" aria-hidden="true"></span>Websites and stores <span class="count">2</span></button>
         <button type="button" class="filter" data-filter="tool" aria-pressed="false" style="--c:var(--c5)"><span class="dot" aria-hidden="true"></span>Tooling <span class="count">4</span></button>
@@ -986,6 +1119,8 @@ p { text-wrap: pretty; }
         <li class="el" data-cat="fe" style="--c:var(--c1)"><span class="sym">Hc</span><span class="el-name">HTML and CSS</span></li>
         <li class="el" data-cat="fe" style="--c:var(--c1)"><span class="sym">Sc</span><span class="el-name">styled-components</span></li>
         <li class="el" data-cat="fe" style="--c:var(--c1)"><span class="sym">Pn</span><span class="el-name">PrimeNG</span></li>
+        <li class="el" data-cat="fe" style="--c:var(--c1)"><span class="sym">Ku</span><span class="el-name">Kendo UI</span></li>
+        <li class="el" data-cat="fe" style="--c:var(--c1)"><span class="sym">Bs</span><span class="el-name">Bootstrap</span></li>
         <li class="el" data-cat="be" style="--c:var(--c2)"><span class="sym">No</span><span class="el-name">Node.js</span></li>
         <li class="el" data-cat="be" style="--c:var(--c2)"><span class="sym">Ex</span><span class="el-name">Express</span></li>
         <li class="el" data-cat="be" style="--c:var(--c2)"><span class="sym">Pg</span><span class="el-name">PostgreSQL</span></li>
@@ -993,6 +1128,8 @@ p { text-wrap: pretty; }
         <li class="el" data-cat="be" style="--c:var(--c2)"><span class="sym">Jw</span><span class="el-name">JWT auth</span></li>
         <li class="el" data-cat="be" style="--c:var(--c2)"><span class="sym">S3</span><span class="el-name">S3 storage</span></li>
         <li class="el" data-cat="be" style="--c:var(--c2)"><span class="sym">Jv</span><span class="el-name">Java</span></li>
+        <li class="el" data-cat="be" style="--c:var(--c2)"><span class="sym">Fb</span><span class="el-name">Firebase</span></li>
+        <li class="el" data-cat="be" style="--c:var(--c2)"><span class="sym">Sq</span><span class="el-name">SQL</span></li>
         <li class="el" data-cat="perf" style="--c:var(--c3)"><span class="sym">Id</span><span class="el-name">IndexedDB</span></li>
         <li class="el" data-cat="perf" style="--c:var(--c3)"><span class="sym">Dx</span><span class="el-name">Dexie</span></li>
         <li class="el" data-cat="perf" style="--c:var(--c3)"><span class="sym">Wc</span><span class="el-name">Web Crypto</span></li>
@@ -1027,18 +1164,25 @@ p { text-wrap: pretty; }
           <p class="desc">React, Node.js/Express and PostgreSQL. I own the spreadsheet performance work end to end.</p>
         </li>
         <li>
-          <span class="icon-tile" aria-hidden="true"><svg class="i"><use href="#i-briefcase"/></svg></span>
-          <span class="when">Before</span>
-          <h3>Software Developer</h3>
-          <p class="org">Nile Technologies, Noida</p>
-          <p class="desc">Angular front-end for an HRMS product.</p>
-        </li>
-        <li>
           <span class="icon-tile" aria-hidden="true"><svg class="i"><use href="#i-code"/></svg></span>
           <span class="when">Ongoing</span>
           <h3>Freelance developer</h3>
           <p class="org">Independent</p>
           <p class="desc">Websites, stores and web apps for clients.</p>
+        </li>
+        <li>
+          <span class="icon-tile" aria-hidden="true"><svg class="i"><use href="#i-chart"/></svg></span>
+          <span class="when">2024 – 2025</span>
+          <h3>Software Engineer</h3>
+          <p class="org">Acro Technologies, Noida</p>
+          <p class="desc">Report builder, dashboards and Kendo charts in Angular.</p>
+        </li>
+        <li>
+          <span class="icon-tile" aria-hidden="true"><svg class="i"><use href="#i-briefcase"/></svg></span>
+          <span class="when">2022 – 2024</span>
+          <h3>Software Developer</h3>
+          <p class="org">Nile Technologies, Noida</p>
+          <p class="desc">Angular front-end for an HRMS product.</p>
         </li>
         <li>
           <span class="icon-tile" aria-hidden="true"><svg class="i"><use href="#i-cap"/></svg></span>
@@ -1055,8 +1199,24 @@ p { text-wrap: pretty; }
         </div>
         <p>Things I make outside client and company work.</p>
       </div>
-      <div class="bento">
-        <article class="tile tile-half spot">
+      <div class="bento side3">
+        <article class="tile spot">
+          <div class="tile-visual">
+            <div class="pipe" aria-label="Live crypto price APIs feed an Angular app with Firebase sign-in and payments">
+              <div class="node"><svg class="i" aria-hidden="true"><use href="#i-activity"/></svg><span><b>Live crypto prices</b><small>market APIs</small></span></div>
+              <div class="wire" aria-hidden="true"><i></i></div>
+              <div class="node"><svg class="i" aria-hidden="true"><use href="#i-window"/></svg><span><b>Finance app</b><small>Angular</small></span></div>
+              <div class="wire" aria-hidden="true"><i></i></div>
+              <div class="node"><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg><span><b>Sign-in and payments</b><small>Firebase Auth</small></span></div>
+            </div>
+          </div>
+          <div class="tile-body">
+            <span class="pill">Personal project</span>
+            <h3>investwithanshul.com</h3>
+            <p class="tile-sub">A personal finance platform with live crypto prices and market stats, Firebase sign-in, and payments for premium features.</p>
+          </div>
+        </article>
+        <article class="tile spot">
           <div class="tile-visual">
             <div class="bots" aria-hidden="true"><span class="bot-av">JS</span><span class="bot-av">JM</span><span class="bot-av">CM</span><span class="bot-av">HS</span><span class="bot-av">+6</span></div>
             <span class="bubble" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -1072,7 +1232,7 @@ p { text-wrap: pretty; }
             </ul>
           </div>
         </article>
-        <article class="tile tile-half spot">
+        <article class="tile spot">
           <div class="tile-visual">
             <div class="pipe" aria-label="Option chains, then the implied versus realised volatility gap, then a ranked list">
               <div class="node"><svg class="i" aria-hidden="true"><use href="#i-db"/></svg><span><b>Option chains</b><small>ICICI Breeze API</small></span></div>
@@ -1101,13 +1261,31 @@ p { text-wrap: pretty; }
             <img class="avatar" src="anshul-avatar.jpg" width="240" height="240" alt="Anshul Pandey">
             <div><b>Anshul Pandey</b><span class="who-status"><span class="pulse" aria-hidden="true"></span>Open to freelance work</span></div>
           </div>
-          <h2>Have a design that needs building?</h2>
-          <p>Send the Figma link, the number of pages and your timeline. I'll reply with questions and an estimate.</p>
-          <a class="email" id="emailText" href="mailto:anshulkumarpandey7@gmail.com?subject=Project%20enquiry">anshulkumarpandey7<wbr>@gmail.com</a>
+          <div class="need" data-need>
+            <p class="need-label">What do you need?</p>
+            <div class="need-chips" role="group" aria-label="What do you need?">
+              <button type="button" class="need-chip is-on" data-need-key="wp" aria-pressed="true"><svg class="i" aria-hidden="true"><use href="#i-layout"/></svg>WordPress site</button>
+              <button type="button" class="need-chip" data-need-key="app" aria-pressed="false"><svg class="i" aria-hidden="true"><use href="#i-window"/></svg>Web app</button>
+              <button type="button" class="need-chip" data-need-key="shop" aria-pressed="false"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg>Shopify store</button>
+              <button type="button" class="need-chip" data-need-key="speed" aria-pressed="false"><svg class="i" aria-hidden="true"><use href="#i-gauge"/></svg>Speed and optimisation</button>
+              <button type="button" class="need-chip" data-need-key="charts" aria-pressed="false"><svg class="i" aria-hidden="true"><use href="#i-chart"/></svg>Dashboards and charts</button>
+              <button type="button" class="need-chip" data-need-key="fix" aria-pressed="false"><svg class="i" aria-hidden="true"><use href="#i-link"/></svg>Fix or integration</button>
+            </div>
+            <h2 data-need-title aria-live="polite">Have a WordPress site to build?</h2>
+            <p class="send-label">Send me</p>
+            <ul class="send-list" data-need-list>
+              <li>Your Figma or design link</li>
+              <li>How many pages you need</li>
+              <li>Plugins you want: forms, SEO, payments</li>
+              <li>Your timeline</li>
+            </ul>
+            <p class="reply">I'll reply with questions and an estimate.</p>
+          </div>
         </div>
         <div class="contact-side">
+          <a class="email" id="emailText" href="mailto:anshulkumarpandey7@gmail.com?subject=WordPress%20website%20enquiry">anshulkumarpandey7<wbr>@gmail.com</a>
           <div class="actions">
-            <a class="btn btn-primary" href="mailto:anshulkumarpandey7@gmail.com?subject=Project%20enquiry"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg>Email me</a>
+            <a class="btn btn-primary" id="emailBtn" href="mailto:anshulkumarpandey7@gmail.com?subject=WordPress%20website%20enquiry"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg>Email me</a>
             <button class="btn" type="button" id="copyEmail"><svg class="i" aria-hidden="true"><use href="#i-copy"/></svg><span data-label>Copy email</span></button>
             <a class="btn" href="https://github.com/Anshul-Pandey1" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-branch"/></svg>GitHub</a>
           </div>
@@ -1253,6 +1431,34 @@ p { text-wrap: pretty; }
     </ul>
   </div>
   <ul class="tags"><li>Angular</li><li>TypeScript</li><li>RxJS</li><li>PrimeNG</li><li>REST APIs</li></ul>
+</template>
+
+<template id="case-charts">
+  <div class="d-block">
+    <h4>What I built</h4>
+    <ul class="feature-grid">
+      <li><span class="icon-tile" aria-hidden="true"><svg class="i"><use href="#i-blocks"/></svg></span><div><b>Report builder</b><span>Custom reports with dynamic fields, configurable layouts and drag-and-drop reordering.</span></div></li>
+      <li><span class="icon-tile" aria-hidden="true"><svg class="i"><use href="#i-chart"/></svg></span><div><b>Interactive charts</b><span>Line, bar and pie charts in Kendo UI with dynamic data processing, custom colour themes and category grouping.</span></div></li>
+      <li><span class="icon-tile" aria-hidden="true"><svg class="i"><use href="#i-layout"/></svg></span><div><b>Personal dashboards</b><span>A dashboard that remembers each user's setup, with a summary report and charts kept in sync with live data. Fixed stale data with Angular change detection.</span></div></li>
+      <li><span class="icon-tile" aria-hidden="true"><svg class="i"><use href="#i-gauge"/></svg></span><div><b>Performance</b><span>RxJS patterns, lazy loading and API caching with pagination, plus ESLint rules for a cleaner codebase.</span></div></li>
+    </ul>
+  </div>
+  <p class="d-note"><strong>About the demo:</strong> the card's chart uses sample data to show the idea. The real charts were built with Kendo UI.</p>
+  <ul class="tags"><li>Angular</li><li>TypeScript</li><li>RxJS</li><li>Kendo UI</li><li>REST APIs</li><li>ESLint</li></ul>
+</template>
+
+<template id="case-ai">
+  <div class="d-block">
+    <h4>What I built</h4>
+    <ul class="did">
+      <li><strong>An AI prompt interface for reporting,</strong> kept fast and stable.</li>
+      <li><strong>Debounced API calls.</strong> A request goes out once the user pauses typing, not on every keystroke.</li>
+      <li><strong>Keyword-based suggestions</strong> that appear as the user types.</li>
+      <li><strong>Clean response rendering,</strong> so the model's answers are easy to read.</li>
+    </ul>
+  </div>
+  <p class="d-note"><strong>About the demo:</strong> the card counts your keystrokes against the calls a debounced box would send. It uses sample suggestions and doesn't call a real AI service.</p>
+  <ul class="tags"><li>Angular</li><li>RxJS</li><li>LLM APIs</li></ul>
 </template>
 
 <template id="case-debug">
@@ -1562,6 +1768,177 @@ p { text-wrap: pretty; }
         selectText();
       }
     });
+  }
+
+  /* Contact: tailor the ask to what the visitor needs */
+  var NEEDS = {
+    wp: { title: 'Have a WordPress site to build?', subject: 'WordPress website', items: ['Your Figma or design link', 'How many pages you need', 'Plugins you want: forms, SEO, payments', 'Your timeline'] },
+    app: { title: 'Have a web app to build?', subject: 'Web app', items: ['What it should do and who will use it', 'Designs or apps you like', 'Existing code or APIs, if any', 'Your timeline'] },
+    shop: { title: 'Need a Shopify store set up?', subject: 'Shopify store', items: ['Your store link or a theme you like', 'How many products you sell', 'Apps and payment options you need', 'Your launch date'] },
+    speed: { title: 'Is your site or app too slow?', subject: 'Speed and optimisation', items: ['The link to your site or app', 'The pages that feel slow', 'Whether most visitors use mobile or desktop', 'How fast you need it to be'] },
+    charts: { title: 'Need dashboards and charts for your data?', subject: 'Dashboards and charts', items: ['Where your data lives: API, database or spreadsheet', 'The charts and reports you need', 'Who will use them', 'Your timeline'] },
+    fix: { title: 'Something broken or not connected?', subject: 'Fix or integration', items: ['The link and the steps that cause the problem', 'Screenshots or error messages', 'The tool to connect: payments, CRM or an API', 'How urgent it is'] }
+  };
+  var need = document.querySelector('[data-need]');
+  if (need) {
+    var needTitle = need.querySelector('[data-need-title]');
+    var needList = need.querySelector('[data-need-list]');
+    var mailLinks = [document.getElementById('emailBtn'), document.getElementById('emailText')];
+    need.querySelectorAll('[data-need-key]').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        var n = NEEDS[chip.getAttribute('data-need-key')];
+        if (!n) return;
+        need.querySelectorAll('[data-need-key]').forEach(function (c) {
+          var on = c === chip;
+          c.classList.toggle('is-on', on);
+          c.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+        needTitle.textContent = n.title;
+        needList.replaceChildren();
+        n.items.forEach(function (text) {
+          var li = document.createElement('li');
+          li.textContent = text;
+          needList.appendChild(li);
+        });
+        var href = 'mailto:anshulkumarpandey7@gmail.com?subject=' + encodeURIComponent(n.subject + ' enquiry');
+        mailLinks.forEach(function (a) { if (a) a.setAttribute('href', href); });
+        need.classList.remove('swap');
+        void need.offsetWidth;
+        need.classList.add('swap');
+      });
+    });
+  }
+
+  /* Charts demo: the same card as bar, line or pie (sample data) */
+  var CHART = {
+    months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    orders: [42, 55, 48, 63, 71, 66],
+    channels: [['Website', 38], ['Mobile app', 27], ['Email', 15], ['Social', 12], ['Other', 8]]
+  };
+  var chartWrap = document.querySelector('[data-chart]');
+  if (chartWrap) {
+    var chartSvg = chartWrap.querySelector('[data-chart-svg]');
+    var chartCap = chartWrap.querySelector('[data-chart-cap]');
+    var f1 = function (n) { return n.toFixed(1); };
+    var axisChart = function (type) {
+      var L = 30, R = 312, T = 16, B = 148, MAX = 80;
+      var y = function (v) { return B - (v / MAX) * (B - T); };
+      var band = (R - L) / CHART.months.length;
+      var out = [];
+      [0, 20, 40, 60, 80].forEach(function (t) {
+        out.push('<line class="cg" x1="' + L + '" x2="' + R + '" y1="' + f1(y(t)) + '" y2="' + f1(y(t)) + '"/>');
+        out.push('<text class="ct" x="' + (L - 6) + '" y="' + f1(y(t) + 3) + '" text-anchor="end">' + t + '</text>');
+      });
+      CHART.months.forEach(function (m, i) {
+        out.push('<text class="ct" x="' + f1(L + band * i + band / 2) + '" y="' + (B + 15) + '" text-anchor="middle">' + m + '</text>');
+      });
+      if (type === 'bar') {
+        CHART.orders.forEach(function (v, i) {
+          var w = 22, x = L + band * i + (band - w) / 2, top = y(v), r = 4;
+          var d = 'M' + f1(x) + ',' + B + ' V' + f1(top + r) + ' Q' + f1(x) + ',' + f1(top) + ' ' + f1(x + r) + ',' + f1(top) +
+            ' H' + f1(x + w - r) + ' Q' + f1(x + w) + ',' + f1(top) + ' ' + f1(x + w) + ',' + f1(top + r) + ' V' + B + ' Z';
+          out.push('<path class="cbar" d="' + d + '"><title>' + CHART.months[i] + ': ' + v + ' orders</title></path>');
+        });
+      } else {
+        var pts = CHART.orders.map(function (v, i) { return [L + band * i + band / 2, y(v)]; });
+        var line = pts.map(function (p, i) { return (i ? 'L' : 'M') + f1(p[0]) + ',' + f1(p[1]); }).join(' ');
+        out.push('<path class="carea" d="' + line + ' L' + f1(pts[pts.length - 1][0]) + ',' + B + ' L' + f1(pts[0][0]) + ',' + B + ' Z"/>');
+        out.push('<path class="cline" d="' + line + '"/>');
+        pts.forEach(function (p, i) {
+          out.push('<circle class="cdot" cx="' + f1(p[0]) + '" cy="' + f1(p[1]) + '" r="4"><title>' + CHART.months[i] + ': ' + CHART.orders[i] + ' orders</title></circle>');
+        });
+      }
+      var top = CHART.orders.indexOf(Math.max.apply(null, CHART.orders));
+      out.push('<text class="cv" x="' + f1(L + band * top + band / 2) + '" y="' + f1(y(CHART.orders[top]) - 8) + '" text-anchor="middle">' + CHART.orders[top] + '</text>');
+      out.push('<line class="cbase" x1="' + L + '" x2="' + R + '" y1="' + B + '" y2="' + B + '"/>');
+      return out.join('');
+    };
+    var pieChart = function () {
+      var cx = 80, cy = 86, r = 70, a0 = -Math.PI / 2, out = [];
+      CHART.channels.forEach(function (c, i) {
+        var a1 = a0 + c[1] / 100 * 2 * Math.PI;
+        var large = (a1 - a0) > Math.PI ? 1 : 0;
+        out.push('<path class="cslice" style="fill:var(--c' + (i + 1) + ')" d="M' + cx + ',' + cy +
+          ' L' + f1(cx + r * Math.cos(a0)) + ',' + f1(cy + r * Math.sin(a0)) +
+          ' A' + r + ',' + r + ' 0 ' + large + ' 1 ' + f1(cx + r * Math.cos(a1)) + ',' + f1(cy + r * Math.sin(a1)) + ' Z"><title>' + c[0] + ': ' + c[1] + '%</title></path>');
+        a0 = a1;
+      });
+      CHART.channels.forEach(function (c, i) {
+        var ly = 36 + i * 24;
+        out.push('<rect x="176" y="' + (ly - 9) + '" width="10" height="10" rx="2" style="fill:var(--c' + (i + 1) + ')"/>');
+        out.push('<text class="cl" x="192" y="' + ly + '">' + c[0] + '</text>');
+        out.push('<text class="cl cnum" x="312" y="' + ly + '" text-anchor="end">' + c[1] + '%</text>');
+      });
+      return out.join('');
+    };
+    var drawChart = function (type) {
+      if (type === 'pie') {
+        chartSvg.innerHTML = pieChart();
+        chartCap.textContent = 'Orders by channel · sample data';
+        chartSvg.setAttribute('aria-label', 'Pie chart of orders by channel, sample data: ' + CHART.channels.map(function (c) { return c[0] + ' ' + c[1] + '%'; }).join(', '));
+      } else {
+        chartSvg.innerHTML = axisChart(type);
+        chartCap.textContent = 'Monthly orders · sample data';
+        chartSvg.setAttribute('aria-label', (type === 'bar' ? 'Bar' : 'Line') + ' chart of monthly orders, sample data: ' + CHART.months.map(function (m, i) { return m + ' ' + CHART.orders[i]; }).join(', '));
+      }
+    };
+    chartWrap.querySelectorAll('[data-chart-type]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        chartWrap.querySelectorAll('[data-chart-type]').forEach(function (b) {
+          var on = b === btn;
+          b.classList.toggle('is-on', on);
+          b.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+        drawChart(btn.getAttribute('data-chart-type'));
+      });
+    });
+    drawChart('bar');
+  }
+
+  /* AI prompt demo: keystrokes vs debounced API calls */
+  var promptWrap = document.querySelector('[data-prompt]');
+  if (promptWrap) {
+    var promptInput = promptWrap.querySelector('input');
+    var keysEl = promptWrap.querySelector('[data-keys]');
+    var callsEl = promptWrap.querySelector('[data-calls]');
+    var suggestEl = promptWrap.querySelector('[data-suggest]');
+    var SUGGESTIONS = ['sales by month', 'sales by region', 'top 5 products', 'orders this week', 'revenue vs last year', 'new customers by month'];
+    var keys = 0, calls = 0, debounce = 0;
+    var pulse = function (el) { el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash'); };
+    var sendCall = function () {
+      clearTimeout(debounce);
+      calls += 1;
+      callsEl.textContent = calls;
+      pulse(callsEl.parentNode);
+    };
+    var showSuggestions = function (query) {
+      var words = query.toLowerCase().split(/\s+/).filter(Boolean);
+      // rank by how many typed words each suggestion contains
+      var list = SUGGESTIONS.map(function (s) {
+        return { text: s, hits: words.filter(function (w) { return s.indexOf(w) !== -1; }).length };
+      }).filter(function (x) { return !words.length || x.hits > 0; })
+        .sort(function (x, y) { return y.hits - x.hits; })
+        .slice(0, 3)
+        .map(function (x) { return x.text; });
+      suggestEl.replaceChildren();
+      list.forEach(function (text) {
+        var li = document.createElement('li');
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.textContent = text;
+        b.addEventListener('click', function () { promptInput.value = text; showSuggestions(text); sendCall(); });
+        li.appendChild(b);
+        suggestEl.appendChild(li);
+      });
+    };
+    promptInput.addEventListener('input', function () {
+      keys += 1;
+      keysEl.textContent = keys;
+      showSuggestions(promptInput.value);
+      clearTimeout(debounce);
+      debounce = setTimeout(sendCall, 400);
+    });
+    showSuggestions('');
   }
 
   var year = document.getElementById('year');
